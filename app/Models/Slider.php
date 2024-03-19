@@ -17,10 +17,9 @@ class Slider extends Model
     }
     public function name()
     {
-        if(app()->getLocale() == "ar")
-        {
-            return $this->name_ar;
+        if (app()->getLocale() == "ar") {
+            return $this->title_ar;
         }
-        return $this->name_en;
+        return $this->title_en;
     }
 }

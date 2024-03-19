@@ -29,11 +29,7 @@ class UpdateRequest extends FormRequest
             'email' => 'nullable|unique:users,email,' . $this->user_id,
             'phone' => 'required|unique:users,phone,' . $this->user_id,
             'password' => 'nullable',
-            'lat' => 'required',
-            'long' => 'required',
-            'address' => 'required',
             'image' => 'nullable|file|mimes:png,jpg,jpeg',
-            'twitter' => 'nullable'
         ];
     }
 }

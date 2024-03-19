@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    {{ __('admin.editSuitable') }}
+    {{ __('admin.product_edit') }}
 @endsection
 @section('css')
     <!--Internal  Datetimepicker-slider css -->
@@ -14,10 +14,10 @@
 @section('content')
     @component('components.breadcrumb')
         @slot('li_1')
-            {{ __('admin.editSuitable') }}
+            {{ __('admin.product_edit') }}
         @endslot
         @slot('title')
-            {{ __('admin.editSuitable') }}
+            {{ __('admin.product_edit') }}
         @endslot
     @endcomponent
 
@@ -25,27 +25,23 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title m-0">{{ __('admin.editSuitable') }}</h4>
+                    <h4 class="card-title m-0">{{ __('admin.product_edit') }}</h4>
                 </div>
                 <div class="card-body">
-                    <form class="needs-validation" action="{{ route('suitables.update') }}" method="POST"
+                    <form class="needs-validation" action="{{ route('products.update') }}" method="POST"
                         enctype="multipart/form-data" id="product-form">
                         @csrf
                         @method('put')
-                        <input type="hidden" name="suitable_id" value="{{ $suitable->id }}" />
+                        <input type="hidden" name="product_id" value="{{ $product->id }}" />
                         @include('layouts.session')
                         <div class="row">
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="image">{{ __('admin.image') }} <span
-                                            class="text-danger fw-bolder"></span></label>
-                                    <div>
-                                        <img src="{{ asset('Admin/images/suitables/' . $suitable->image) }}"
-                                            alt="{{ __('admin.icon') }}" class="img-thumbnail wd-100p wd-sm-200" />
-                                    </div>
-                                    <input type="file" class="form-control @error('image') is-invalid @enderror"
-                                        id="image" name="image">
-                                    @error('image')
+                                    <label class="form-label" for="images">{{ __('admin.image') }}</label>
+                                    <input multiple type="file"
+                                        class="form-control @error('images') is-invalid @enderror" id="image"
+                                        name="images[]">
+                                    @error('images')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -60,7 +56,7 @@
                                             class="text-danger fw-bolder">*</span></label>
                                     <input type="text" class="form-control @error('name_ar') is-invalid @enderror"
                                         id="name_ar" name="name_ar" placeholder="{{ __('admin.name_ar') }}"
-                                        value="{{ $suitable->name_ar }}" required>
+                                        value="{{ $product->name_ar }}" required>
                                     @error('name_ar')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -74,7 +70,7 @@
                                             class="text-danger fw-bolder">*</span></label>
                                     <input type="text" class="form-control @error('name_en') is-invalid @enderror"
                                         id="name_en" name="name_en" placeholder="{{ __('admin.name_en') }}"
-                                        value="{{ $suitable->name_en }}" required>
+                                        value="{{ $product->name_en }}" required>
                                     @error('name_en')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -84,12 +80,13 @@
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="date">{{ __('admin.date_suitable') }} <span
+                                    <label class="form-label" for="price">{{ __('admin.price') }} <span
                                             class="text-danger fw-bolder">*</span></label>
-                                    <input type="date" class="form-control @error('date') is-invalid @enderror"
-                                        id="date" name="date" placeholder="{{ __('admin.date_suitable') }}"
-                                        value="{{ $suitable->date }}" required>
-                                    @error('date')
+                                    <input type="number" min="1"
+                                        class="form-control @error('price') is-invalid @enderror" id="price"
+                                        name="price" placeholder="{{ __('admin.price') }}" value="{{ $product->price }}"
+                                        required>
+                                    @error('price')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -98,12 +95,12 @@
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="time">{{ __('admin.time') }} <span
+                                    <label class="form-label" for="count">{{ __('admin.count') }} <span
                                             class="text-danger fw-bolder">*</span></label>
-                                    <input type="time" class="form-control @error('time') is-invalid @enderror"
-                                        id="time" name="time" placeholder="{{ __('admin.time') }}"
-                                        value="{{ $suitable->time }}" required>
-                                    @error('time')
+                                    <input type="number"min="1" class="form-control @error('count') is-invalid @enderror"
+                                        id="count" name="count" placeholder="{{ __('admin.count') }}"
+                                        value="{{ $product->count }}" required>
+                                    @error('count')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -112,40 +109,19 @@
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="lat">{{ __('admin.lat') }} <span
+                                    <label class="form-label" for="category_id">{{ __('admin.categories') }}<span
                                             class="text-danger fw-bolder">*</span></label>
-                                    <input type="text" class="form-control @error('lat') is-invalid @enderror"
-                                        id="lat" name="lat" placeholder="{{ __('admin.lat') }}"
-                                        value="{{ $suitable->lat }}" required>
-                                    @error('lat')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="long">{{ __('admin.long') }} <span
-                                            class="text-danger fw-bolder">*</span></label>
-                                    <input type="text" class="form-control @error('long') is-invalid @enderror"
-                                        id="long" name="long" placeholder="{{ __('admin.long') }}"
-                                        value="{{ $suitable->long }}" required>
-                                    @error('long')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="address">{{ __('admin.address') }} <span
-                                            class="text-danger fw-bolder">*</span></label>
-                                    <input type="text" class="form-control @error('address') is-invalid @enderror"
-                                        id="address" name="address" placeholder="{{ __('admin.address') }}"
-                                        value="{{ $suitable->address }}" required>
-                                    @error('address')
+                                    <select class="form-control form-select @error('category_id') is-invalid @enderror"
+                                        id="category_id" name="category_id" required>
+                                        <option value="" selected disabled>{{ __('admin.choose_category') }}
+                                        </option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}"
+                                                @if ($product->category_id == $category->id) selected @endif>{{ $category->title() }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -159,7 +135,7 @@
                                     <label class="form-label" for="desc">{{ __('admin.desc_ar') }}<span
                                             class="text-danger fw-bolder">*</span></label>
                                     <textarea class="form-control @error('desc_ar') is-invalid @enderror" id="description" name="desc_ar"
-                                        placeholder="{{ __('admin.desc_ar') }}">{{ $suitable->desc_ar }}</textarea>
+                                        placeholder="{{ __('admin.desc_ar') }}">{{ $product->desc_ar }}</textarea>
                                     @error('desc_ar')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -172,7 +148,7 @@
                                     <label class="form-label" for="desc">{{ __('admin.desc_en') }}<span
                                             class="text-danger fw-bolder">*</span></label>
                                     <textarea class="form-control @error('desc_en') is-invalid @enderror" id="description_en" name="desc_en"
-                                        placeholder="{{ __('admin.desc_en') }}">{{ $suitable->desc_en }}</textarea>
+                                        placeholder="{{ __('admin.desc_en') }}">{{ $product->desc_en }}</textarea>
                                     @error('desc_en')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -181,9 +157,7 @@
                                 </div>
                             </div>
                         </div>
-
-
-                        <button class="btn btn-primary" type="submit">{{ __('admin.editSuitable') }}</button>
+                        <button class="btn btn-primary" type="submit">{{ __('admin.product_edit') }}</button>
                     </form>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    {{ __('admin.addSuitable') }}
+    {{ __('admin.product_create') }}
 @endsection
 @section('css')
     <!--Internal  Datetimepicker-slider css -->
@@ -14,10 +14,10 @@
 @section('content')
     @component('components.breadcrumb')
         @slot('li_1')
-            {{ __('admin.addSuitable') }}
+            {{ __('admin.product_create') }}
         @endslot
         @slot('title')
-            {{ __('admin.addSuitable') }}
+            {{ __('admin.product_create') }}
         @endslot
     @endcomponent
 
@@ -25,10 +25,10 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title m-0">{{ __('admin.addSuitable') }}</h4>
+                    <h4 class="card-title m-0">{{ __('admin.product_create') }}</h4>
                 </div>
                 <div class="card-body">
-                    <form class="needs-validation" action="{{ route('suitables.store') }}" method="POST"
+                    <form class="needs-validation" action="{{ route('products.store') }}" method="POST"
                         enctype="multipart/form-data" id="product-form">
                         @csrf
                         @include('layouts.session')
@@ -54,11 +54,12 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="image">{{ __('admin.image') }} <span
+                                    <label class="form-label" for="images">{{ __('admin.image') }} <span
                                             class="text-danger fw-bolder">*</span></label>
-                                    <input type="file" class="form-control @error('image') is-invalid @enderror"
-                                        id="image" name="image" required>
-                                    @error('image')
+                                    <input multiple type="file"
+                                        class="form-control @error('images') is-invalid @enderror" id="image"
+                                        name="images[]" required>
+                                    @error('images')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -97,12 +98,13 @@
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="date">{{ __('admin.date_suitable') }} <span
+                                    <label class="form-label" for="price">{{ __('admin.price') }} <span
                                             class="text-danger fw-bolder">*</span></label>
-                                    <input type="date" class="form-control @error('date') is-invalid @enderror"
-                                        id="date" name="date" placeholder="{{ __('admin.date_suitable') }}"
-                                        value="{{ old('date') }}" required>
-                                    @error('date')
+                                    <input type="number" min="1"
+                                        class="form-control @error('price') is-invalid @enderror" id="price"
+                                        name="price" placeholder="{{ __('admin.price') }}" value="{{ old('price') }}"
+                                        required>
+                                    @error('price')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -111,12 +113,13 @@
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="time">{{ __('admin.time') }} <span
+                                    <label class="form-label" for="count">{{ __('admin.count') }} <span
                                             class="text-danger fw-bolder">*</span></label>
-                                    <input type="time" class="form-control @error('time') is-invalid @enderror"
-                                        id="time" name="time" placeholder="{{ __('admin.time') }}"
-                                        value="{{ old('time') }}" required>
-                                    @error('time')
+                                    <input type="number" min="1"
+                                        class="form-control @error('count') is-invalid @enderror" id="count"
+                                        name="count" placeholder="{{ __('admin.count') }}" value="{{ old('count') }}"
+                                        required>
+                                    @error('count')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -125,40 +128,19 @@
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="lat">{{ __('admin.lat') }} <span
+                                    <label class="form-label" for="category_id">{{ __('admin.categories') }}<span
                                             class="text-danger fw-bolder">*</span></label>
-                                    <input type="text" class="form-control @error('lat') is-invalid @enderror"
-                                        id="lat" name="lat" placeholder="{{ __('admin.lat') }}"
-                                        value="{{ old('lat') }}" required>
-                                    @error('lat')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="long">{{ __('admin.long') }} <span
-                                            class="text-danger fw-bolder">*</span></label>
-                                    <input type="text" class="form-control @error('long') is-invalid @enderror"
-                                        id="long" name="long" placeholder="{{ __('admin.long') }}"
-                                        value="{{ old('long') }}" required>
-                                    @error('long')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="address">{{ __('admin.address') }} <span
-                                            class="text-danger fw-bolder">*</span></label>
-                                    <input type="text" class="form-control @error('address') is-invalid @enderror"
-                                        id="address" name="address" placeholder="{{ __('admin.address') }}"
-                                        value="{{ old('address') }}" required>
-                                    @error('address')
+                                    <select class="form-control form-select @error('category_id') is-invalid @enderror"
+                                        id="category_id" name="category_id" required>
+                                        <option value="" selected disabled>{{ __('admin.choose_category') }}
+                                        </option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}"
+                                                @if (old('category_id') == $category->id) selected @endif>{{ $category->title() }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -194,9 +176,7 @@
                                 </div>
                             </div>
                         </div>
-
-
-                        <button class="btn btn-primary" type="submit">{{ __('admin.addSuitable') }}</button>
+                        <button class="btn btn-primary" type="submit">{{ __('admin.product_create') }}</button>
                     </form>
                 </div>
             </div>

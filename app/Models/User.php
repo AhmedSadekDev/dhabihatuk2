@@ -38,9 +38,9 @@ class User extends Authenticatable
     {
         return $query->where('role_id', '!=', 1)->where('role_id', '!=', 2)->where('role_id', '!=', 4);
     }
-    public function scopeRoleIdUser($query, $status)
+    public function scopeRoleIdUser($query)
     {
-        return $query->where('role_id', 4)->where('status', $status);
+        return $query->where('role_id', 4);
     }
     public function scopeRoleIdAdmin($query)
     {

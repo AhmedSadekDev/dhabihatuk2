@@ -15,4 +15,11 @@ class Category extends Model
     {
         return Carbon::parse($this->attributes['created_at'])->format('Y-m-d');
     }
+    public function title()
+    {
+        if (app()->getLocale() == "ar") {
+            return $this->name_ar;
+        }
+        return $this->name_en;
+    }
 }

@@ -1,12 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    @if ($status == 0)
-        {{ __('admin.new_news') }}
-    @elseif($status == 1)
-        {{ __('admin.accepet_news') }}
-    @else
-        {{ __('admin.rejecet_news') }}
-    @endif
+    {{ __('admin.categories') }}
 @endsection
 @section('css')
     <!---Internal Owl Carousel css-->
@@ -25,22 +19,10 @@
 @section('content')
     @component('components.breadcrumb')
         @slot('li_1')
-            @if ($status == 0)
-                {{ __('admin.new_news') }}
-            @elseif($status == 1)
-                {{ __('admin.accepet_news') }}
-            @else
-                {{ __('admin.rejecet_news') }}
-            @endif
+            {{ __('admin.categories') }}
         @endslot
         @slot('title')
-            @if ($status == 0)
-                {{ __('admin.new_news') }}
-            @elseif($status == 1)
-                {{ __('admin.accepet_news') }}
-            @else
-                {{ __('admin.rejecet_news') }}
-            @endif
+            {{ __('admin.categories') }}
         @endslot
     @endcomponent
 
@@ -49,20 +31,12 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title m-0">
-                        @if ($status == 0)
-                            {{ __('admin.new_news') }}
-                        @elseif($status == 1)
-                            {{ __('admin.accepet_news') }}
-                        @else
-                            {{ __('admin.rejecet_news') }}
-                        @endif
+                        {{ __('admin.categories') }}
                     </h4>
-                    @if ($status == 0)
-                        @can('addNews')
-                            <a href="{{ route('addNews') }}" class="btn btn-primary button-icon"><i
-                                    class="fe fe-plus ml-2 font-weight-bolder"></i>{{ __('admin.addNews') }}</a>
-                        @endcan
-                    @endif
+                    @can('addCategory')
+                        <a href="{{ route('addCategory') }}" class="btn btn-primary button-icon"><i
+                                class="fe fe-plus ml-2 font-weight-bolder"></i>{{ __('admin.add_category') }}</a>
+                    @endcan
 
                 </div>
                 <div class="card-body table-responsive border-0">
@@ -78,69 +52,48 @@
                                 <th class="fw-bold">#</th>
                                 <th class="fw-bold">{{ __('admin.image') }}</th>
                                 <th class="fw-bold">{{ __('admin.title') }}</th>
-                                <th class="fw-bold">{{ __('admin.description') }}</th>
-                                <th class="fw-bold">{{ __('admin.newUser') }}</th>
-                                <th class="fw-bold">{{ __('admin.status') }}</th>
-                                <th class="fw-bold">{{ __('admin.date_news') }}</th>
-                                @can('accepetOrRejecetNews')
-                                    <th class="fw-bold">{{ __('admin.accepetOrRejecet') }}</th>
+                                @can('editCategory')
+                                    <th class="fw-bold">{{ __('admin.actions') }}</th>
                                 @endcan
-                                <th class="fw-bold">{{ __('admin.actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (count($news) == 0)
+                            @if (count($categories) == 0)
                                 <tr class="align-middle">
                                     <td colspan="9" class="text-center">{{ __('admin.no_data') }}</td>
                                 </tr>
                             @endif
-                            @foreach ($news as $count => $new)
+                            @foreach ($categories as $count => $new)
                                 <tr data-id="{{ $count + 1 }}">
                                     <td style="width: 80px" class="align-middle">{{ $count + 1 }}</td>
-                                    <td class="align-middle"><img src="{{ asset('Admin/images/news/' . $new->image) }}"
+                                    <td class="align-middle"><img
+                                            src="{{ asset('Admin/images/categories/' . $new->image) }}"
                                             alt="{{ __('admin.image') }}" style="width: 100px;" /></td>
                                     <td class="align-middle">{{ $new->title() }}</td>
-                                    <td class="align-middle">{!! mb_strimwidth($new->desc(), 0, 500, ',...') !!}</td>
-                                    <td class="align-middle">{{ $new->user->name }}</td>
-                                    <td class="align-middle">
-                                        {{ $new->show == 0 ? __('admin.hidden') : __('admin.displayed') }}</td>
-                                    <td class="align-middle">{{ $new->created_at }}</td>
-                                    @can('accepetOrRejecetNews')
-                                        <td class="align-middle">
-                                            @if ($status == 0)
-                                                <a href="{{ route('news.accepet', $new->id) }}"
-                                                    class="btn btn-success">{{ __('admin.accepet') }}</a>
-                                                <a href="{{ route('news.rejecet', $new->id) }}"
-                                                    class="btn btn-danger">{{ __('admin.rejecet') }}</a>
-                                            @elseif($status == 1)
-                                                {{ __('admin.accepet') }}
-                                            @else
-                                                {{ __('admin.rejecet') }}
-                                            @endif
-                                        </td>
-                                    @endcan
+
                                     <td class="align-middle">
                                         <div class="d-flex">
-                                            @can('editNew')
-                                                <form class="d-inline ml-2" action="{{ route('news.verify') }}" method="POST">
+                                            @can('editCategory')
+                                                <form class="d-inline ml-2" action="{{ route('categories.verify') }}"
+                                                    method="POST">
                                                     @csrf
                                                     @method('PUT')
                                                     <input type="hidden" name="new_id" value="{{ $new->id }}" />
                                                     <button type="submit"
                                                         class="btn btn-outline-secondary  bg-primary text-dark btn-sm"
-                                                        @if ($new->show == 1) title="{{ __('admin.hide') }}" @else title="{{ __('admin.showIcon') }}" @endif>
-                                                        <i class="@if ($new->show == 1) fas fa-eye-slash @else fas fa-eye @endif"
+                                                        @if ($new->status == 1) title="{{ __('admin.hide') }}" @else title="{{ __('admin.showIcon') }}" @endif>
+                                                        <i class="@if ($new->status == 1) fas fa-eye-slash @else fas fa-eye @endif"
                                                             style="color:white"></i>
                                                     </button>
                                                 </form>
 
                                                 <a class="btn btn-outline-secondary bg-warning text-dark btn-sm ml-2"
                                                     title="{{ __('admin.edit') }}"
-                                                    href="{{ route('news.edit', [$new->id]) }}">
+                                                    href="{{ route('categories.edit', [$new->id]) }}">
                                                     <i class="fas fa-pencil-alt" style="color:white"></i>
                                                 </a>
                                             @endcan
-                                            @can('deleteNew')
+                                            @can('deleteCategory')
                                                 <button type="submit"
                                                     class="modal-effect btn btn-outline-secondary bg-danger text-dark btn-sm"
                                                     title="{{ __('admin.delete') }}" data-effect="effect-newspaper"
@@ -152,7 +105,7 @@
 
                                         </div>
 
-                                        @can('deleteNew')
+                                        @can('deleteCategory')
                                             <div class="modal" id="myModal{{ $new->id }}">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content modal-content-demo">
@@ -165,7 +118,7 @@
                                                             <p>{{ __('admin.deleteNewMessage') }}</p>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <form class="d-inline" action="{{ route('news.delete') }}"
+                                                            <form class="d-inline" action="{{ route('categories.delete') }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('Delete')
@@ -188,7 +141,7 @@
                     </table>
                     <div class="row">
                         <div class="col-12 pagination-box">
-                            {{ $news->links() }}
+                            {{ $categories->links() }}
                         </div>
                     </div>
                 </div>

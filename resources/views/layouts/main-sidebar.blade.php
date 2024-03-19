@@ -81,9 +81,7 @@
                             style="font-size: 16px"></i><span class="side-menu__label">{{ __('admin.users') }}</span><i
                             class="angle fe fe-chevron-down"></i></a>
                     <ul class="slide-menu">
-                        <li><a class="slide-item" href="{{ route('users', 0) }}">{{ __('admin.new_users') }}</a>
-                        <li><a class="slide-item" href="{{ route('users', 1) }}">{{ __('admin.accepet_users') }}</a>
-                        <li><a class="slide-item" href="{{ route('users', 2) }}">{{ __('admin.rejecet_users') }}</a>
+                        <li><a class="slide-item" href="{{ route('users') }}">{{ __('admin.users') }}</a>
                         </li>
                         @can('addUser')
                             <li><a class="slide-item" href="{{ route('addUser') }}">{{ __('admin.add_user') }}</a>
@@ -128,18 +126,15 @@
                     </ul>
                 </li>
             @endcan
-            @can('news')
+            @can('categories')
                 <li class="slide">
                     <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
-                            style="font-size: 16px"></i><span class="side-menu__label">{{ __('admin.news') }}</span><i
+                            style="font-size: 16px"></i><span
+                            class="side-menu__label">{{ __('admin.categories') }}</span><i
                             class="angle fe fe-chevron-down"></i></a>
                     <ul class="slide-menu">
 
-                        <li><a class="slide-item" href="{{ route('news', 0) }}">{{ __('admin.new_news') }}</a>
-                        </li>
-                        <li><a class="slide-item" href="{{ route('news', 1) }}">{{ __('admin.accepet_news') }}</a>
-                        </li>
-                        <li><a class="slide-item" href="{{ route('news', 2) }}">{{ __('admin.rejecet_news') }}</a>
+                        <li><a class="slide-item" href="{{ route('categories') }}">{{ __('admin.categories') }}</a>
                         </li>
                         @can('addNews')
                             <li><a class="slide-item" href="{{ route('addNews') }}">{{ __('admin.addNews') }}</a>
@@ -149,24 +144,18 @@
                     </ul>
                 </li>
             @endcan
-            @can('suitables')
+            @can('products')
                 <li class="slide">
                     <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
                             style="font-size: 16px"></i><span
-                            class="side-menu__label">{{ __('admin.suitables') }}</span><i
+                            class="side-menu__label">{{ __('admin.products') }}</span><i
                             class="angle fe fe-chevron-down"></i></a>
                     <ul class="slide-menu">
 
-                        <li><a class="slide-item" href="{{ route('suitables', 0) }}">{{ __('admin.new_suitable') }}</a>
+                        <li><a class="slide-item" href="{{ route('products') }}">{{ __('admin.products') }}</a>
                         </li>
-                        <li><a class="slide-item"
-                                href="{{ route('suitables', 1) }}">{{ __('admin.accepet_suitable') }}</a>
-                        </li>
-                        <li><a class="slide-item"
-                                href="{{ route('suitables', 2) }}">{{ __('admin.rejecet_suitable') }}</a>
-                        </li>
-                        @can('addSuitable')
-                            <li><a class="slide-item" href="{{ route('addSuitable') }}">{{ __('admin.addSuitable') }}</a>
+                        @can('addProduct')
+                            <li><a class="slide-item" href="{{ route('addProduct') }}">{{ __('admin.add_product') }}</a>
                             </li>
                         @endcan
 
@@ -195,18 +184,6 @@
                     <ul class="slide-menu">
                         @can('about')
                             <li><a class="slide-item" href="{{ route('about') }}">{{ __('admin.abouts') }}</a></li>
-                        @endcan
-                    </ul>
-                </li>
-            @endcan
-            @can('whoUs')
-                <li class="slide">
-                    <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
-                            style="font-size: 16px"></i><span class="side-menu__label">{{ __('admin.who_us') }}</span><i
-                            class="angle fe fe-chevron-down"></i></a>
-                    <ul class="slide-menu">
-                        @can('whoUs')
-                            <li><a class="slide-item" href="{{ route('whoUs') }}">{{ __('admin.who_us') }}</a></li>
                         @endcan
                     </ul>
                 </li>

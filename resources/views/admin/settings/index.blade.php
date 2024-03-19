@@ -228,27 +228,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label class="form-label" for="familyImage">{{ __('admin.familyImage') }}</label>
-                                    @if ($setting)
-                                        <div>
-                                            <img src="{{ asset('Admin/images/setting/' . $setting->familyImage) }}"
-                                                alt="{{ __('admin.familyImage') }}"
-                                                class="img-thumbnail wd-100p wd-sm-200" />
-                                        </div>
-                                    @endif
-                                    <input type="file" class="form-control @error('familyImage') is-invalid @enderror"
-                                        id="familyImage" name="familyImage">
-                                    @error('familyImage')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
+                        
                         <button class="btn btn-primary" type="submit">{{ __('admin.change_settings') }}</button>
                     </form>
                 </div>

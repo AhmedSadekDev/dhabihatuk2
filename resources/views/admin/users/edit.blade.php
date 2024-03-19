@@ -116,62 +116,6 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-xl-6">
-                            <div class="mb-3">
-                                <label class="form-label" for="twitter"> {{ __('admin.twitter') }} <span
-                                        class="text-danger fw-bolder"></span></label>
-                                <input type="url" class="form-control @error('twitter') is-invalid @enderror"
-                                    id="twitter" name="twitter" placeholder=" {{ __('admin.twitter') }}"
-                                    value="{{ $user->twitter }}">
-                                @error('twitter')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-xl-6">
-                            <div class="mb-3">
-                                <label class="form-label" for="lat"> {{ __('admin.lat') }} <span
-                                        class="text-danger fw-bolder">*</span></label>
-                                <input type="text" class="form-control @error('lat') is-invalid @enderror"
-                                    id="lat" name="lat" placeholder=" {{ __('admin.lat') }}"
-                                    value="{{ $user->lat }}" required>
-                                @error('lat')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-xl-6">
-                            <div class="mb-3">
-                                <label class="form-label" for="long"> {{ __('admin.long') }} <span
-                                        class="text-danger fw-bolder">*</span></label>
-                                <input type="text" class="form-control @error('long') is-invalid @enderror"
-                                    id="long" name="long" placeholder=" {{ __('admin.long') }}"
-                                    value="{{ $user->long }}" required>
-                                @error('long')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-xl-6">
-                            <div class="mb-3">
-                                <label class="form-label" for="address"> {{ __('admin.address') }} <span
-                                        class="text-danger fw-bolder">*</span></label>
-                                <input type="text" class="form-control @error('address') is-invalid @enderror"
-                                    id="address" name="address" placeholder=" {{ __('admin.address') }}"
-                                    value="{{ $user->address }}" required>
-                                @error('address')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
 
                         <div class="col-xl-6">
                             <div class="mb-3">

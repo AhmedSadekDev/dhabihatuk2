@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    {{ __('admin.addNews') }}
+    {{ __('admin.add_category') }}
 @endsection
 @section('css')
     <!--Internal  Datetimepicker-slider css -->
@@ -14,10 +14,10 @@
 @section('content')
     @component('components.breadcrumb')
         @slot('li_1')
-            {{ __('admin.addNews') }}
+            {{ __('admin.add_category') }}
         @endslot
         @slot('title')
-            {{ __('admin.addNews') }}
+            {{ __('admin.add_category') }}
         @endslot
     @endcomponent
 
@@ -25,10 +25,10 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title m-0">{{ __('admin.addNews') }}</h4>
+                    <h4 class="card-title m-0">{{ __('admin.add_category') }}</h4>
                 </div>
                 <div class="card-body">
-                    <form class="needs-validation" action="{{ route('news.store') }}" method="POST"
+                    <form class="needs-validation" action="{{ route('categories.store') }}" method="POST"
                         enctype="multipart/form-data" id="product-form">
                         @csrf
                         @include('layouts.session')
@@ -96,37 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label class="form-label" for="desc">{{ __('admin.desc_ar') }}<span
-                                            class="text-danger fw-bolder">*</span></label>
-                                    <textarea class="form-control @error('desc_ar') is-invalid @enderror" id="description" name="desc_ar"
-                                        placeholder="{{ __('admin.desc_ar') }}">{{ old('desc_ar') }}</textarea>
-                                    @error('desc_ar')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label class="form-label" for="desc">{{ __('admin.desc_en') }}<span
-                                            class="text-danger fw-bolder">*</span></label>
-                                    <textarea class="form-control @error('desc_en') is-invalid @enderror" id="description_en" name="desc_en"
-                                        placeholder="{{ __('admin.desc_en') }}">{{ old('desc_en') }}</textarea>
-                                    @error('desc_en')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <button class="btn btn-primary" type="submit">{{ __('admin.addNews') }}</button>
+                        <button class="btn btn-primary" type="submit">{{ __('admin.add_category') }}</button>
                     </form>
                 </div>
             </div>

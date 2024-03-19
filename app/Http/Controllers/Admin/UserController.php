@@ -22,16 +22,15 @@ class UserController extends Controller
         $this->userModel = $employee;
         $this->roleModel = $role;
     }
-    public function index($status)
+    public function index()
     {
-        $users = $this->userModel->RoleIdUser($status)->paginate(10);
-        return view('admin.users.clients', compact('users', 'status'));
+        $users = $this->userModel->RoleIdUser()->latest()->paginate(10);
+        return view('admin.users.clients', compact('users'));
     }
     public function searchUser(Request $request)
     {
-        $status = $request->status;
-        $users = $this->userModel->where('name', 'LIKE', '%' . $request->search . '%')->RoleIdUser($status)->paginate(10);
-        return view('admin.users.clients', compact('users', 'status'));
+        $users = $this->userModel->where('name', 'LIKE', '%' . $request->search . '%')->RoleIdUser()->paginate(10);
+        return view('admin.users.clients', compact('users'));
     }
 
     public function addUser()
@@ -52,15 +51,11 @@ class UserController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
-            'lat' => $request->lat,
-            'long' => $request->long,
-            'address' => $request->address,
             'image' => $imageName,
-            'twitter' => $request->twitter,
             'role_id' => 4
         ]);
 
-        return redirect(route('users', 0))->with('message', __('messages.adduser'));
+        return redirect(route('users'))->with('message', __('messages.adduser'));
     }
 
     public function verify(Request $request)
@@ -68,10 +63,10 @@ class UserController extends Controller
         $admin = $this->userModel->findOrFail($request->user_id);
 
         $admin->update([
-            'verify' => ($admin->verify == 1) ? 0 : 1,
+            'status' => ($admin->status == 1) ? 0 : 1,
         ]);
 
-        session()->flash('message', ($admin->verify == 1) ? __('messages.verify_user') : __('messages.notverify_user'));
+        session()->flash('message', ($admin->status == 1) ? __('messages.verify_user') : __('messages.notverify_user'));
         return redirect()->back();
     }
 
@@ -94,13 +89,9 @@ class UserController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => $password,
-            'lat' => $request->lat,
-            'long' => $request->long,
-            'address' => $request->address,
             'image' => ($request->image) ? $imageName : "",
-            'twitter' => $request->twitter,
         ]);
-        return redirect(route('users', $employee->status))->with('message', __('messages.edit_user'));
+        return redirect(route('users'))->with('message', __('messages.edit_user'));
     }
 
     public function delete(Request $request)

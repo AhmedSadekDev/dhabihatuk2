@@ -28,11 +28,7 @@ class AddRequest extends FormRequest
             'email' => 'nullable|unique:users,email',
             'phone' => 'required|unique:users,phone',
             'password' => 'required',
-            'lat' => 'required',
-            'long' => 'required',
-            'address' => 'required',
             'image' => 'nullable|file|mimes:png,jpg,jpeg',
-            'twitter' => 'nullable'
         ];
     }
 }

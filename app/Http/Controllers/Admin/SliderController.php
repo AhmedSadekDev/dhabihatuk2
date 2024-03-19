@@ -33,8 +33,8 @@ class SliderController extends Controller
         $this->uploadImage($request->image, $imageName, 'sliders');
 
         $this->sliderModel->create([
-            'name_ar' => $request->name_ar,
-            'name_en' => $request->name_en,
+            'title_ar' => $request->name_ar,
+            'title_en' => $request->name_en,
             'image' => $imageName,
             'status' => ($request->show) ? 1 : 0,
         ]);
@@ -57,8 +57,8 @@ class SliderController extends Controller
             $imageName = $slider->image;
         }
         $slider->update([
-            'name_ar' => $request->name_ar,
-            'name_en' => $request->name_en,
+            'title_ar' => $request->name_ar,
+            'title_en' => $request->name_en,
             'image' => $imageName,
         ]);
         return redirect(route('sliders'))->with('message', __('messages.edit_slider'));
@@ -83,6 +83,7 @@ class SliderController extends Controller
         $slider = $this->sliderModel->findOrFail($request->slider_id);
         $slider->delete();
 
-        return back()->with('success', __('messages.delete_slider'));;
+        return back()->with('success', __('messages.delete_slider'));
+        ;
     }
 }

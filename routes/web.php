@@ -4,21 +4,18 @@ use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactController;
-use App\Http\Controllers\Admin\DeadInformationController;
+use App\Http\Controllers\Admin\CuttingMethodController;
 use App\Http\Controllers\Admin\EmployeeController;
-use App\Http\Controllers\Admin\GravesControllers;
-use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\NotificationController;
-use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\PackagingTypeController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\LangController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\RowControllers;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SocialController;
-use App\Http\Controllers\Admin\SquareControllers;
-use App\Http\Controllers\Admin\SuitableController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -79,7 +76,7 @@ Route::group(['prefix' => '/', 'middleware' => ['Lang']], function () {
         Route::group(
             ['prefix' => '/users'],
             function () {
-                Route::get('/{status}', [UserController::class, 'index'])->name('users');
+                Route::get('/', [UserController::class, 'index'])->name('users');
                 Route::get('/search/searchUser', [UserController::class, 'searchUser'])->name('searchUser');
                 Route::get('/user/addUser', [UserController::class, 'addUser'])->name('addUser')->middleware('can:addUser');
                 Route::post('/', [UserController::class, 'store'])->name('users.store');
@@ -124,37 +121,33 @@ Route::group(['prefix' => '/', 'middleware' => ['Lang']], function () {
             }
         );
         /**
-         * Route For news Controller
+         * Route For categories Controller
          */
         Route::group(
-            ['prefix' => '/news'],
+            ['prefix' => '/categories'],
             function () {
-                Route::get('/{status}', [NewsController::class, 'index'])->name('news');
-                Route::get('/news/addNews', [NewsController::class, 'addNews'])->name('addNews')->middleware('can:addNews');
-                Route::post('/', [NewsController::class, 'store'])->name('news.store');
-                Route::delete('/', [NewsController::class, 'delete'])->name('news.delete')->middleware('can:deleteNew');
-                Route::PUT('/', [NewsController::class, 'update'])->name('news.update');
-                Route::PUT('/verify', [NewsController::class, 'verify'])->name('news.verify');
-                Route::get('/editNew/{id}', [NewsController::class, 'edit'])->name('news.edit')->middleware('can:editNew');
-                Route::get('/accepet/{id}', [NewsController::class, 'accepet'])->name('news.accepet')->middleware('can:accepetOrRejecetNews');
-                Route::get('/rejecet/{id}', [NewsController::class, 'rejecet'])->name('news.rejecet')->middleware('can:accepetOrRejecetNews');
+                Route::get('/', [CategoryController::class, 'index'])->name('categories');
+                Route::get('/addCategory', [CategoryController::class, 'addCategory'])->name('addCategory')->middleware('can:addCategory');
+                Route::post('/', [CategoryController::class, 'store'])->name('categories.store');
+                Route::delete('/', [CategoryController::class, 'delete'])->name('categories.delete')->middleware('can:deleteCategory');
+                Route::PUT('/', [CategoryController::class, 'update'])->name('categories.update');
+                Route::PUT('/verify', [CategoryController::class, 'verify'])->name('categories.verify');
+                Route::get('/editCategory/{id}', [CategoryController::class, 'edit'])->name('categories.edit')->middleware('can:editCategory');
             }
         );
         /**
-         * Route For suitables Controller
+         * Route For products Controller
          */
         Route::group(
-            ['prefix' => '/suitables'],
+            ['prefix' => '/products'],
             function () {
-                Route::get('/{status}', [SuitableController::class, 'index'])->name('suitables');
-                Route::get('/suitables/addSuitable', [SuitableController::class, 'addSuitable'])->name('addSuitable')->middleware('can:addSuitable');
-                Route::post('/', [SuitableController::class, 'store'])->name('suitables.store');
-                Route::delete('/', [SuitableController::class, 'delete'])->name('suitables.delete')->middleware('can:deleteSuitable');
-                Route::PUT('/', [SuitableController::class, 'update'])->name('suitables.update');
-                Route::PUT('/verify', [SuitableController::class, 'verify'])->name('suitables.verify');
-                Route::get('/editsuitable/{id}', [SuitableController::class, 'edit'])->name('suitables.edit')->middleware('can:editsuitable');
-                Route::get('/accepet/{id}', [SuitableController::class, 'accepet'])->name('suitables.accepet')->middleware('can:accepetOrRejecetSuitable');
-                Route::get('/rejecet/{id}', [SuitableController::class, 'rejecet'])->name('suitables.rejecet')->middleware('can:accepetOrRejecetSuitable');
+                Route::get('/', [ProductController::class, 'index'])->name('products');
+                Route::get('/addProduct', [ProductController::class, 'addProduct'])->name('addProduct')->middleware('can:addProduct');
+                Route::post('/', [ProductController::class, 'store'])->name('products.store');
+                Route::delete('/', [ProductController::class, 'delete'])->name('products.delete')->middleware('can:deleteProduct');
+                Route::PUT('/', [ProductController::class, 'update'])->name('products.update');
+                Route::PUT('/verify', [ProductController::class, 'verify'])->name('products.verify');
+                Route::get('/editProduct/{id}', [ProductController::class, 'edit'])->name('products.edit')->middleware('can:editProduct');
             }
         );
         Route::group(['prefix' => 'settings'], function () {
@@ -188,19 +181,33 @@ Route::group(['prefix' => '/', 'middleware' => ['Lang']], function () {
         });
 
         /**
-         * Route For graves Controller
+         * Route For cuttingMethod Controller
          */
         Route::group(
-            ['prefix' => '/articales'],
+            ['prefix' => '/cuttingMethod'],
             function () {
-                Route::get('/', [ArticleController::class, 'index'])->name('articales');
-                Route::get('/addArticle', [ArticleController::class, 'addArticle'])->name('addArticle')->middleware('can:addArticle');
-                Route::post('/', [ArticleController::class, 'store'])->name('articales.store');
-                Route::delete('/', [ArticleController::class, 'delete'])->name('articales.delete')->middleware('can:deleteArticle');
-                Route::PUT('/', [ArticleController::class, 'update'])->name('articales.update');
-                Route::PUT('/verify', [ArticleController::class, 'verify'])->name('articales.verify');
-                Route::get('/editArticle/{id}', [ArticleController::class, 'edit'])->name('articales.edit')->middleware('can:editArticle');
-
+                Route::get('/', [CuttingMethodController::class, 'index'])->name('cuttingMethod');
+                Route::get('/addcuttingMethod', [CuttingMethodController::class, 'addcuttingMethod'])->name('addcuttingMethod')->middleware('can:addcuttingMethod');
+                Route::post('/', [CuttingMethodController::class, 'store'])->name('cuttingMethod.store');
+                Route::delete('/', [CuttingMethodController::class, 'delete'])->name('cuttingMethod.delete')->middleware('can:deletecuttingMethod');
+                Route::PUT('/', [CuttingMethodController::class, 'update'])->name('cuttingMethod.update');
+                Route::PUT('/verify', [CuttingMethodController::class, 'verify'])->name('cuttingMethod.verify');
+                Route::get('/editcuttingMethod/{id}', [CuttingMethodController::class, 'edit'])->name('cuttingMethod.edit')->middleware('can:editcuttingMethod');
+            }
+        );
+        /**
+         * Route For PackagingType Controller
+         */
+        Route::group(
+            ['prefix' => '/PackagingType'],
+            function () {
+                Route::get('/', [PackagingTypeController::class, 'index'])->name('PackagingType');
+                Route::get('/addPackagingType', [PackagingTypeController::class, 'addPackagingType'])->name('addPackagingType')->middleware('can:addPackagingType');
+                Route::post('/', [PackagingTypeController::class, 'store'])->name('PackagingType.store');
+                Route::delete('/', [PackagingTypeController::class, 'delete'])->name('PackagingType.delete')->middleware('can:deletePackagingType');
+                Route::PUT('/', [PackagingTypeController::class, 'update'])->name('PackagingType.update');
+                Route::PUT('/verify', [PackagingTypeController::class, 'verify'])->name('PackagingType.verify');
+                Route::get('/editPackagingType/{id}', [PackagingTypeController::class, 'edit'])->name('PackagingType.edit')->middleware('can:editPackagingType');
             }
         );
         /**
@@ -231,16 +238,6 @@ Route::group(['prefix' => '/', 'middleware' => ['Lang']], function () {
             function () {
                 Route::get('/', [AboutController::class, 'terms'])->name('terms');
                 Route::post('/', [AboutController::class, 'updateterms'])->name('terms.update');
-            }
-        );
-        /**
-         * Route For terms Controller
-         */
-        Route::group(
-            ['prefix' => '/whoUs'],
-            function () {
-                Route::get('/', [AboutController::class, 'whoUs'])->name('whoUs');
-                Route::post('/', [AboutController::class, 'updatewhoUs'])->name('whoUs.update');
             }
         );
         /**

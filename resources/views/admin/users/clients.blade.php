@@ -7,13 +7,7 @@ if (isset($_GET['search'])) {
 ?>
 @extends('layouts.master')
 @section('title')
-    @if ($status == 0)
-        {{ __('admin.new_users') }}
-    @elseif($status == 1)
-        {{ __('admin.accepet_users') }}
-    @else
-        {{ __('admin.rejecet_users') }}
-    @endif
+    {{ __('admin.users') }}
 @endsection
 @section('css')
     <!---Internal Owl Carousel css-->
@@ -32,22 +26,10 @@ if (isset($_GET['search'])) {
 @section('content')
     @component('components.breadcrumb')
         @slot('li_1')
-            @if ($status == 0)
-                {{ __('admin.new_users') }}
-            @elseif($status == 1)
-                {{ __('admin.accepet_users') }}
-            @else
-                {{ __('admin.rejecet_users') }}
-            @endif
+            {{ __('admin.users') }}
         @endslot
         @slot('title')
-            @if ($status == 0)
-                {{ __('admin.new_users') }}
-            @elseif($status == 1)
-                {{ __('admin.accepet_users') }}
-            @else
-                {{ __('admin.rejecet_users') }}
-            @endif
+            {{ __('admin.users') }}
         @endslot
     @endcomponent
 
@@ -56,27 +38,13 @@ if (isset($_GET['search'])) {
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title m-0">
-                        @if ($status == 0)
-                            {{ __('admin.new_users') }}
-                        @elseif($status == 1)
-                            {{ __('admin.accepet_users') }}
-                        @else
-                            {{ __('admin.rejecet_users') }}
-                        @endif
+                        {{ __('admin.users') }}
                     </h4>
-                    @if ($status == 0)
-                        @can('addUser')
-                            <a href="{{ route('addUser') }}" class="btn btn-primary button-icon"><i
-                                    class="fe fe-plus ml-2 font-weight-bolder"></i>{{ __('admin.add_user') }}</a>
-                        @endcan
-                        @can('importExcel')
-                            <button type="submit" class="modal-effect btn btn-primary button-icon"
-                                title="{{ __('admin.importExcel') }}" data-effect="effect-newspaper" data-toggle="modal"
-                                href="#importExcel">
-                                <i class="fas fa-plus" style="color:white"></i>{{ __('admin.importExcel') }}
-                            </button>
-                        @endcan
-                    @endif
+                    @can('addUser')
+                        <a href="{{ route('addUser') }}" class="btn btn-primary button-icon"><i
+                                class="fe fe-plus ml-2 font-weight-bolder"></i>{{ __('admin.add_user') }}</a>
+                    @endcan
+
 
                 </div>
                 <div class="card-body table-responsive border-0">
@@ -90,7 +58,6 @@ if (isset($_GET['search'])) {
                         <div class="row d-flex align-items-center">
                             <div class="col-xl-6">
                                 <div class="mb-3">
-                                    <input name="status" type="hidden" value="{{ $status }}" />
                                     <input type="text" class="form-control @error('search') is-invalid @enderror"
                                         id="search" name="search" placeholder="{{ __('admin.searchEmployee') }}"
                                         value="{{ $search }}" required>
@@ -114,12 +81,7 @@ if (isset($_GET['search'])) {
                                 <th class="fw-bold">{{ __('admin.name') }}</th>
                                 <th class="fw-bold">{{ __('admin.email') }}</th>
                                 <th class="fw-bold">{{ __('admin.phone') }}</th>
-                                <th class="fw-bold">{{ __('admin.address') }}</th>
-                                <th class="fw-bold">{{ __('admin.twitter') }}</th>
                                 <th class="fw-bold">{{ __('admin.statusAccount') }}</th>
-                                @can('accepetOrRejecet')
-                                    <th class="fw-bold">{{ __('admin.accepetOrRejecet') }}</th>
-                                @endcan
                                 <th class="fw-bold">{{ __('admin.dateRegister') }}</th>
                                 <th class="fw-bold">{{ __('admin.actions') }}</th>
                             </tr>
@@ -138,24 +100,8 @@ if (isset($_GET['search'])) {
                                     <td class="align-middle">{{ $client->name }}</td>
                                     <td class="align-middle">{{ $client->email }}</td>
                                     <td class="align-middle">{{ $client->phone }}</td>
-                                    <td class="align-middle">{{ $client->address }}</td>
-                                    <td class="align-middle">{{ $client->twitter }}</td>
                                     <td class="align-middle">
-                                        {{ $client->verify == 0 ? __('admin.non-verified') : __('admin.verified') }}</td>
-                                    @can('accepetOrRejecet')
-                                        <td class="align-middle">
-                                            @if ($status == 0)
-                                                <a href="{{ route('users.accepet', $client->id) }}"
-                                                    class="btn btn-success">{{ __('admin.accepet') }}</a>
-                                                <a href="{{ route('users.rejecet', $client->id) }}"
-                                                    class="btn btn-danger">{{ __('admin.rejecet') }}</a>
-                                            @elseif($status == 1)
-                                                {{ __('admin.accepet') }}
-                                            @else
-                                                {{ __('admin.rejecet') }}
-                                            @endif
-                                        </td>
-                                    @endcan
+                                        {{ $client->status == 0 ? __('admin.non-verified') : __('admin.verified') }}</td>
                                     <td class="align-middle">{{ $client->created_at }}</td>
                                     <td class="align-middle">
                                         <div class="d-flex">
@@ -167,8 +113,8 @@ if (isset($_GET['search'])) {
                                                     <input type="hidden" name="user_id" value="{{ $client->id }}" />
                                                     <button type="submit"
                                                         class="btn btn-outline-secondary  bg-primary text-dark btn-sm"
-                                                        @if ($client->verify == 1) title="{{ __('admin.notactive') }}" @else title="{{ __('admin.active') }}" @endif>
-                                                        <i class="@if ($client->verify == 1) fas fa-eye-slash @else fas fa-eye @endif"
+                                                        @if ($client->status == 1) title="{{ __('admin.notactive') }}" @else title="{{ __('admin.active') }}" @endif>
+                                                        <i class="@if ($client->status == 1) fas fa-eye-slash @else fas fa-eye @endif"
                                                             style="color:white"></i>
                                                     </button>
                                                 </form>
@@ -197,8 +143,7 @@ if (isset($_GET['search'])) {
                                                         <div class="modal-header">
                                                             <h5 class="modal-title">{{ __('admin.deleteUser') }}</h5>
                                                             <button aria-label="Close" class="close" data-dismiss="modal"
-                                                                type="button"><span
-                                                                    aria-hidden="true">&times;</span></button>
+                                                                type="button"><span aria-hidden="true">&times;</span></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <p>{{ __('admin.deleteUserMessafe') }}</p>
@@ -248,8 +193,8 @@ if (isset($_GET['search'])) {
                             <div class="mb-3">
                                 <label class="form-label" for="file">{{ __('admin.headerUpload') }} <span
                                         class="text-danger fw-bolder"></span></label>
-                                        <br>
-                                    <img src="{{ asset('Admin/images/header.jpeg') }}" />
+                                <br>
+                                <img src="{{ asset('Admin/images/header.jpeg') }}" />
                             </div>
                         </div>
                         <div class="col-12">
@@ -268,7 +213,8 @@ if (isset($_GET['search'])) {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <form id="formUpload" class="d-inline" action="{{ route('users.importExcel') }}" method="POST" enctype="multipart/form-data">
+                    <form id="formUpload" class="d-inline" action="{{ route('users.importExcel') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <button type="button" class="btn btn-secondary waves-effect"
                             data-dismiss="modal">{{ __('admin.back') }}</button>
