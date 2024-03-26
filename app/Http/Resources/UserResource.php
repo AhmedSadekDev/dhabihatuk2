@@ -20,10 +20,6 @@ class UserResource extends JsonResource
             'email' => ($this->email) ?? "" ,
             'phone' => ($this->phone) ?? "",
             'image' => ($this->image) ?? "" ,
-            'lat' => ($this->lat) ?? "" ,
-            'long' => ($this->long) ?? "" ,
-            'address' => ($this->address) ?? "" ,
-            'twitter' => ($this->twitter) ?? "" ,
             'token' => ($this->token) ?? "" ,
             'created_at' => ($this->created_at) ?? "" ,
         ];

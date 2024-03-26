@@ -23,6 +23,7 @@ Route::group(['middleware' => ['api']], function () {
     Route::post('resetPassword', [AuthController::class, 'resetPassword']);
     Route::post('changePassword', [AuthController::class, 'changePassword']);
     Route::post('login', [AuthController::class, 'login']);
+    Route::get('homeScreen', [HomeController::class, 'homeScreen']);
 });
 Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
@@ -30,7 +31,6 @@ Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
     Route::get('getProfileData', [AuthController::class, 'getProfileData']);
     Route::post('updateProfile', [AuthController::class, 'updateProfile']);
     Route::post('updatePassword', [AuthController::class, 'updatePassword']);
-    Route::get('homeScreen', [HomeController::class, 'homeScreen']);
     Route::get('allNews', [HomeController::class, 'allNews']);
     Route::get('allSuitables', [HomeController::class, 'allSuitables']);
     Route::get('familyNames', [HomeController::class, 'familyNames']);

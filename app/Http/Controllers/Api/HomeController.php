@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\SliderResource;
 use App\Http\Traits\GeneralTrait;
 use App\Http\Traits\ImagesTrait;
 use App\Models\About;
+use App\Models\Category;
 use App\Models\Contact;
 use App\Models\News;
 use App\Models\NotificationDetials;
@@ -33,48 +36,9 @@ class HomeController extends Controller
     public function homeScreen()
     {
         try {
-            $sliders = Slider::where('status', 1)->latest()->get(['image']);
-            foreach ($sliders as $key => $slider) {
-                $slider->image = env('APP_URL') . 'Admin/images/sliders/' . $slider->image;
-            }
-            $newData = [];
-            $news = News::where(['status' => 1, 'show' => 1])->latest()->take(10)->get();
-            foreach ($news as $key => $new) {
-                $newData[$key]['id'] = $new->id;
-                if (app()->getLocale() == "ar") {
-                    $newData[$key]['name'] = $new->name_ar;
-                    $newData[$key]['desc'] = $new->desc_ar;
-                } else {
-                    $newData[$key]['name'] = $new->name_en;
-                    $newData[$key]['desc'] = $new->desc_en;
-                }
-                $newData[$key]['image'] = env('APP_URL') . 'Admin/images/news/' . $new->image;
-                $newData[$key]["time"] = Carbon::createFromTimeStamp(strtotime($new->updated_at))->locale(request()->header('lang'))->diffForHumans();
-                $newData[$key]["dateString"] = Carbon::parse($new->updated_at)->locale(request()->header('lang'))->toHijri()->isoFormat('LLLL') . " " . $new->created_at;
-                $newData[$key]['user'] = $new->user->name;
-            }
-            $suitableData = [];
-            $suitables = Suitable::where(['status' => 1, 'show' => 1])->latest()->take(10)->get();
-            foreach ($suitables as $key => $suitable) {
-                $suitableData[$key]['id'] = $suitable->id;
-                if (app()->getLocale() == "ar") {
-                    $suitableData[$key]['name'] = $suitable->name_ar;
-                    $suitableData[$key]['desc'] = $suitable->desc_ar;
-                } else {
-                    $suitableData[$key]['name'] = $suitable->name_en;
-                    $suitableData[$key]['desc'] = $suitable->desc_en;
-                }
-                $suitableData[$key]['image'] = env('APP_URL') . 'Admin/images/suitables/' . $suitable->image;
-                $suitableData[$key]["time"] = Carbon::createFromTimeStamp(strtotime($suitable->updated_at))->locale(request()->header('lang'))->diffForHumans();
-                $suitableData[$key]["dateString"] = Carbon::parse($suitable->updated_at)->locale(request()->header('lang'))->toHijri()->isoFormat('LLLL') . " " . $suitable->created_at;
-                $suitableData[$key]['user'] = $suitable->user->name;
-                $suitableData[$key]['address'] = $suitable->address;
-                $suitableData[$key]['time'] = $suitable->time;
-                $suitableData[$key]['date'] = $suitable->date;
-            }
-            $notificationCount = Notifications::where(['status' => 0, 'user_id' => request()->user()->id])->count();
-            $notificationCount += NotificationDetials::where(['status' => 0, 'user_id' => request()->user()->id])->count();
-            return $this->returnData("data", ['sliders' => $sliders, 'news' => $newData, 'suitable' => $suitableData, 'notificationCount' => $notificationCount], 'تم استرجاع الداتا بنجاح');
+            $sliders = Slider::where('status', 1)->latest()->get();
+            $categories = Category::where('status', 1)->latest()->get();
+            return $this->returnData("data", ['sliders' => SliderResource::collection($sliders), 'categories' => CategoryResource::collection($categories)], 'تم استرجاع الداتا بنجاح');
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
         }

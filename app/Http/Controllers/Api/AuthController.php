@@ -30,11 +30,7 @@ class AuthController extends Controller
                 'email' => 'nullable|email|unique:users,email',
                 'phone' => 'required|unique:users,phone',
                 'password' => 'required',
-                'lat' => 'required',
-                'long' => 'required',
-                'address' => 'required',
                 'image' => 'nullable|file|mimes:png,jpg,jpeg',
-                'twitter' => 'nullable|url'
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
@@ -55,11 +51,7 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password),
-                'lat' => $request->lat,
-                'long' => $request->long,
-                'address' => $request->address,
                 'image' => $imageName,
-                'twitter' => $request->twitter,
                 'role_id' => $role->id
             ]);
             Otp::create([
@@ -250,11 +242,7 @@ class AuthController extends Controller
                 'name' => 'required|string',
                 'email' => 'nullable|email|unique:users,email,' . $request->user()->id,
                 'phone' => 'required|unique:users,phone,' . $request->user()->id,
-                'lat' => 'required',
-                'long' => 'required',
-                'address' => 'required',
                 'image' => 'nullable|file|mimes:png,jpg,jpeg',
-                'twitter' => 'nullable|url'
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
@@ -270,11 +258,7 @@ class AuthController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                'lat' => $request->lat,
-                'long' => $request->long,
-                'address' => $request->address,
                 'image' => ($request->image) ? $imageName : '',
-                'twitter' => $request->twitter,
             ]);
             return $this->returnData("data", ["user" => new UserResource($user)], __('api.updateProfile'));
         } catch (\Throwable $e) {

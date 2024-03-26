@@ -16,8 +16,8 @@ class SliderResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => (app()->getLocale() == "ar") ? $this->name_ar : $this->name_en,
-            'image' => ($this->image) ?? "",
+            'name' => $this->name(),
+            'image' => ($this->image) ? env('APP_URL') . 'Admin/images/sliders/' . $this->image : "",
         ];
     }
 }
