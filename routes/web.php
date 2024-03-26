@@ -2,14 +2,12 @@
 
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ChoppingController;
 use App\Http\Controllers\Admin\ContactController;
-use App\Http\Controllers\Admin\CuttingMethodController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\NotificationController;
-use App\Http\Controllers\Admin\PackagingTypeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\LangController;
 use App\Http\Controllers\Admin\RoleController;
@@ -17,6 +15,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SocialController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\WrappingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -181,33 +180,33 @@ Route::group(['prefix' => '/', 'middleware' => ['Lang']], function () {
         });
 
         /**
-         * Route For cuttingMethod Controller
+         * Route For Chopping Controller
          */
         Route::group(
-            ['prefix' => '/cuttingMethod'],
+            ['prefix' => '/Chopping'],
             function () {
-                Route::get('/', [CuttingMethodController::class, 'index'])->name('cuttingMethod');
-                Route::get('/addcuttingMethod', [CuttingMethodController::class, 'addcuttingMethod'])->name('addcuttingMethod')->middleware('can:addcuttingMethod');
-                Route::post('/', [CuttingMethodController::class, 'store'])->name('cuttingMethod.store');
-                Route::delete('/', [CuttingMethodController::class, 'delete'])->name('cuttingMethod.delete')->middleware('can:deletecuttingMethod');
-                Route::PUT('/', [CuttingMethodController::class, 'update'])->name('cuttingMethod.update');
-                Route::PUT('/verify', [CuttingMethodController::class, 'verify'])->name('cuttingMethod.verify');
-                Route::get('/editcuttingMethod/{id}', [CuttingMethodController::class, 'edit'])->name('cuttingMethod.edit')->middleware('can:editcuttingMethod');
+                Route::get('/', [ChoppingController::class, 'index'])->name('Chopping');
+                Route::get('/addChopping', [ChoppingController::class, 'addChopping'])->name('addChopping')->middleware('can:addChopping');
+                Route::post('/', [ChoppingController::class, 'store'])->name('Chopping.store');
+                Route::delete('/', [ChoppingController::class, 'delete'])->name('Chopping.delete')->middleware('can:deleteChopping');
+                Route::PUT('/', [ChoppingController::class, 'update'])->name('Chopping.update');
+                Route::PUT('/verify', [ChoppingController::class, 'verify'])->name('Chopping.verify');
+                Route::get('/editChopping/{id}', [ChoppingController::class, 'edit'])->name('Chopping.edit')->middleware('can:editChopping');
             }
         );
         /**
-         * Route For PackagingType Controller
+         * Route For Wrapping Controller
          */
         Route::group(
-            ['prefix' => '/PackagingType'],
+            ['prefix' => '/Wrapping'],
             function () {
-                Route::get('/', [PackagingTypeController::class, 'index'])->name('PackagingType');
-                Route::get('/addPackagingType', [PackagingTypeController::class, 'addPackagingType'])->name('addPackagingType')->middleware('can:addPackagingType');
-                Route::post('/', [PackagingTypeController::class, 'store'])->name('PackagingType.store');
-                Route::delete('/', [PackagingTypeController::class, 'delete'])->name('PackagingType.delete')->middleware('can:deletePackagingType');
-                Route::PUT('/', [PackagingTypeController::class, 'update'])->name('PackagingType.update');
-                Route::PUT('/verify', [PackagingTypeController::class, 'verify'])->name('PackagingType.verify');
-                Route::get('/editPackagingType/{id}', [PackagingTypeController::class, 'edit'])->name('PackagingType.edit')->middleware('can:editPackagingType');
+                Route::get('/', [WrappingController::class, 'index'])->name('Wrapping');
+                Route::get('/addWrapping', [WrappingController::class, 'addWrapping'])->name('addWrapping')->middleware('can:addWrapping');
+                Route::post('/', [WrappingController::class, 'store'])->name('Wrapping.store');
+                Route::delete('/', [WrappingController::class, 'delete'])->name('Wrapping.delete')->middleware('can:deleteWrapping');
+                Route::PUT('/', [WrappingController::class, 'update'])->name('Wrapping.update');
+                Route::PUT('/verify', [WrappingController::class, 'verify'])->name('Wrapping.verify');
+                Route::get('/editWrapping/{id}', [WrappingController::class, 'edit'])->name('Wrapping.edit')->middleware('can:editWrapping');
             }
         );
         /**

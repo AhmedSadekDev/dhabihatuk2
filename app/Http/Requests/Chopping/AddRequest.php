@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\PackagingType;
+namespace App\Http\Requests\Chopping;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -11,7 +11,7 @@ class AddRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class AddRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name_ar' => 'required|string',
+            'name_en' => 'required|string',
         ];
     }
 }

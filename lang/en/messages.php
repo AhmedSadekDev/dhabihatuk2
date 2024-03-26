@@ -233,5 +233,10 @@ return
         'delete_suitable' => 'The event was successfully deleted',
         'accepet_suitable' => 'The event was successfully approved',
         'rejecet_suitable' => 'The event was rejected successfully',
+        'addChopping' => 'The method of cutting the carcass has been added',
+        'editChopping' => 'The method of cutting the carcass has been modified',
+        'deleteChopping' => 'The method of cutting the carcass has been successfully deleted',
+        'showChopping' => 'Chopping method has been shown',
+        'hideChopping' => 'Chopping method has been hidden',
     ]
     ?>

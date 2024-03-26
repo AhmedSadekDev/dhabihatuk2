@@ -85,7 +85,12 @@ return [
     'create_user' => 'تم إضافة المستخدم بنجاح',
 
     'delete_work_image' => 'تم حذف صورة العمل بنجاح',
-
+    
+    'addChopping' => 'تم اضافة طريقه تقطيع الذبيحه',
+    'editChopping' => 'تم تعديل طريقة تقطيع الذبيحة',
+    'deleteChopping' => 'تم حذف طريقة تقطيع الذبيحة بنجاح',
+    'showChopping' => 'تم اظهار طريقة التقطيع',
+    'hideChopping' => 'تم اخفاء طريقة التقطيع',
     // Categories
     'add_category' => 'تم إضافة القسم بنجاح',
     'edit_category' => 'تم تعديل القسم بنجاح',

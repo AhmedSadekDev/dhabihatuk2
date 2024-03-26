@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\CuttingMethod;
+namespace App\Http\Requests\Wrapping;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class AddRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name_ar' => 'required|string',
+            'name_en' => 'required|string',
+            'Wrapping_id' => 'required|exists:wrappings,id'
         ];
     }
 }

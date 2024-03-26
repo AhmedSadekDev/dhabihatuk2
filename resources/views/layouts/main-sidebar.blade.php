@@ -162,6 +162,42 @@
                     </ul>
                 </li>
             @endcan
+            @can('Chopping')
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
+                            style="font-size: 16px"></i><span
+                            class="side-menu__label">{{ __('admin.Chopping') }}</span><i
+                            class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
+
+                        <li><a class="slide-item" href="{{ route('Chopping') }}">{{ __('admin.Chopping') }}</a>
+                        </li>
+                        @can('addChopping')
+                            <li><a class="slide-item" href="{{ route('addChopping') }}">{{ __('admin.addChopping') }}</a>
+                            </li>
+                        @endcan
+
+                    </ul>
+                </li>
+            @endcan
+            @can('Wrapping')
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
+                            style="font-size: 16px"></i><span
+                            class="side-menu__label">{{ __('admin.Wrapping') }}</span><i
+                            class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
+
+                        <li><a class="slide-item" href="{{ route('Wrapping') }}">{{ __('admin.Wrapping') }}</a>
+                        </li>
+                        @can('addWrapping')
+                            <li><a class="slide-item" href="{{ route('addWrapping') }}">{{ __('admin.addWrapping') }}</a>
+                            </li>
+                        @endcan
+
+                    </ul>
+                </li>
+            @endcan
             @can('notifications')
                 <li class="slide">
                     <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"

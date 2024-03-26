@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\News;
+namespace App\Http\Requests\Chopping;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -8,10 +8,8 @@ class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -19,17 +17,14 @@ class UpdateRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, mixed>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name_ar' => 'required|string',
             'name_en' => 'required|string',
-            'desc_en' => 'required|string',
-            'desc_ar' => 'required|string',
-            'image' => 'nullable|file',
-            'new_id' => 'required|exists:news,id'
+            'chipping_id' => 'required|exists:choppings,id'
         ];
     }
 }
