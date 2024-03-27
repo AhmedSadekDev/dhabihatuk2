@@ -24,6 +24,9 @@ Route::group(['middleware' => ['api']], function () {
     Route::post('changePassword', [AuthController::class, 'changePassword']);
     Route::post('login', [AuthController::class, 'login']);
     Route::get('homeScreen', [HomeController::class, 'homeScreen']);
+    Route::get('categoryProducts', [HomeController::class, 'categoryProducts']);
+    Route::get('Wrapping', [HomeController::class, 'Wrapping']);
+    Route::get('Chopping', [HomeController::class, 'Chopping']);
 });
 Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
@@ -31,16 +34,10 @@ Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
     Route::get('getProfileData', [AuthController::class, 'getProfileData']);
     Route::post('updateProfile', [AuthController::class, 'updateProfile']);
     Route::post('updatePassword', [AuthController::class, 'updatePassword']);
-    Route::get('allNews', [HomeController::class, 'allNews']);
-    Route::get('allSuitables', [HomeController::class, 'allSuitables']);
-    Route::get('familyNames', [HomeController::class, 'familyNames']);
     Route::get('getNotifications', [HomeController::class, 'getNotifications']);
-    Route::get('whoUs', [HomeController::class, 'whoUs']);
     Route::get('about', [HomeController::class, 'about']);
     Route::get('terms', [HomeController::class, 'terms']);
     Route::get('getSocials', [HomeController::class, 'getSocials']);
     Route::post('sendContact', [HomeController::class, 'sendContact']);
-    Route::post('addNew', [HomeController::class, 'addNew']);
-    Route::post('addSuitable', [HomeController::class, 'addSuitable']);
     Route::get('setting', [HomeController::class, 'setting']);
 });

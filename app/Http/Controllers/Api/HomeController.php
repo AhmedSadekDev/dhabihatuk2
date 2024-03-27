@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\ProductResource;
 use App\Http\Resources\SliderResource;
 use App\Http\Traits\GeneralTrait;
 use App\Http\Traits\ImagesTrait;
@@ -13,6 +14,7 @@ use App\Models\Contact;
 use App\Models\News;
 use App\Models\NotificationDetials;
 use App\Models\Notifications;
+use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\Social;
@@ -20,6 +22,7 @@ use App\Models\Suitable;
 use App\Models\Terms;
 use App\Models\User;
 use App\Models\WhoUs;
+use App\Models\Wrapping;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;
@@ -43,63 +46,21 @@ class HomeController extends Controller
             return $this->returnError(403, $th->getMessage());
         }
     }
-    public function allNews()
-    {
-        try {
-            $newData = [];
-            $news = News::where(['status' => 1, 'show' => 1])->latest()->take(10)->get();
-            foreach ($news as $key => $new) {
-                $newData[$key]['id'] = $new->id;
-                if (app()->getLocale() == "ar") {
-                    $newData[$key]['name'] = $new->name_ar;
-                    $newData[$key]['desc'] = $new->desc_ar;
-                } else {
-                    $newData[$key]['name'] = $new->name_en;
-                    $newData[$key]['desc'] = $new->desc_en;
-                }
-                $newData[$key]['image'] = env('APP_URL') . 'Admin/images/news/' . $new->image;
-                $newData[$key]["time"] = Carbon::createFromTimeStamp(strtotime($new->updated_at))->locale(request()->header('lang'))->diffForHumans();
-                $newData[$key]["dateString"] = Carbon::parse($new->updated_at)->locale(request()->header('lang'))->toHijri()->isoFormat('LLLL') . " " . $new->created_at;
-                $newData[$key]['user'] = $new->user->name;
-            }
-            return $this->returnData("data", ['news' => $newData], 'تم استرجاع الداتا بنجاح');
-        } catch (\Throwable $th) {
-            return $this->returnError(403, $th->getMessage());
-        }
-    }
-    public function allSuitables()
-    {
-        try {
-            $suitableData = [];
-            $suitables = Suitable::where(['status' => 1, 'show' => 1])->latest()->take(10)->get();
-            foreach ($suitables as $key => $suitable) {
-                $suitableData[$key]['id'] = $suitable->id;
-                if (app()->getLocale() == "ar") {
-                    $suitableData[$key]['name'] = $suitable->name_ar;
-                    $suitableData[$key]['desc'] = $suitable->desc_ar;
-                } else {
-                    $suitableData[$key]['name'] = $suitable->name_en;
-                    $suitableData[$key]['desc'] = $suitable->desc_en;
-                }
-                $suitableData[$key]['image'] = env('APP_URL') . 'Admin/images/suitables/' . $suitable->image;
-                $suitableData[$key]["time"] = Carbon::createFromTimeStamp(strtotime($suitable->updated_at))->locale(request()->header('lang'))->diffForHumans();
-                $suitableData[$key]["dateString"] = Carbon::parse($suitable->updated_at)->locale(request()->header('lang'))->toHijri()->isoFormat('LLLL') . " " . $suitable->created_at;
-                $suitableData[$key]['user'] = $suitable->user->name;
-                $suitableData[$key]['address'] = $suitable->address;
-                $suitableData[$key]['time'] = $suitable->time;
-                $suitableData[$key]['date'] = $suitable->date;
-            }
-            return $this->returnData("data", ['suitable' => $suitableData], 'تم استرجاع الداتا بنجاح');
-        } catch (\Throwable $th) {
-            return $this->returnError(403, $th->getMessage());
-        }
-    }
 
-    public function familyNames()
+    public function categoryProducts()
     {
         try {
-            $users = User::where(['status' => 1, 'verify' => 1, 'role_id' => 4])->latest()->get(['id', 'name', 'phone', 'image', 'address']);
-            return $this->returnData("data", ["users" => $users], 'تم استرجاع الداتا بنجاح');
+            $products = Product::where(['status' => 1, 'category_id' => request()->category_id])->latest()->get();
+            return $this->returnData("data", ['products' => ProductResource::collection($products)], 'تم استرجاع الداتا بنجاح');
+        } catch (\Throwable $th) {
+            return $this->returnError(403, $th->getMessage());
+        }
+    }
+    public function Wrapping()
+    {
+        try {
+            $Wrapping = Wrapping::where('status', 1)->latest()->get();
+            return $this->returnData("data", ['products' => ProductResource::collection($Wrapping)], 'تم استرجاع الداتا بنجاح');
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
         }
@@ -146,15 +107,7 @@ class HomeController extends Controller
             return $this->returnError(403, $th->getMessage());
         }
     }
-    public function whoUs()
-    {
-        try {
-            $whous = WhoUs::first();
-            return $this->returnData("data", ["whoUs" => (app()->getLocale() == "ar") ? $whous->value_ar : $whous->value_en], 'تم استرحاع الداتا بنجاح');
-        } catch (\Throwable $th) {
-            return $this->returnError(403, $th->getMessage());
-        }
-    }
+
     public function about()
     {
         try {
@@ -224,74 +177,4 @@ class HomeController extends Controller
         }
     }
 
-    public function addSuitable(Request $request)
-    {
-        try {
-            $rules = [
-                'name_ar' => 'required|string',
-                'name_en' => 'required|string',
-                'desc_ar' => 'required|string',
-                'desc_en' => 'required|string',
-                'lat' => 'required|string',
-                'long' => 'required|string',
-                'address' => 'required|string',
-                'date' => 'required|string',
-                'time' => 'required|string',
-                'image' => 'required|file',
-            ];
-            $validator = Validator::make($request->all(), $rules);
-            if ($validator->fails()) {
-                $code = $this->returnCodeAccordingToInput($validator);
-                return $this->returnValidationError($code, $validator);
-            }
-            $imageName = time() . 'suitables.' . $request->image->extension();
-            $this->uploadImage($request->image, $imageName, 'suitables');
-            Suitable::create([
-                'name_ar' => $request->name_ar,
-                'name_en' => $request->name_en,
-                'desc_ar' => $request->desc_ar,
-                'desc_en' => $request->desc_en,
-                'lat' => $request->lat,
-                'long' => $request->long,
-                'address' => $request->address,
-                'time' => $request->time,
-                'date' => $request->date,
-                'image' => $imageName,
-                'user_id' => $request->user()->id
-            ]);
-            return $this->returnSuccess(200, __('api.addSuitable'));
-        } catch (\Throwable $th) {
-            return $this->returnError(403, $th->getMessage());
-        }
-    }
-    public function addNew(Request $request)
-    {
-        try {
-            $rules = [
-                'name_ar' => 'required|string',
-                'name_en' => 'required|string',
-                'desc_ar' => 'required|string',
-                'desc_en' => 'required|string',
-                'image' => 'required|file',
-            ];
-            $validator = Validator::make($request->all(), $rules);
-            if ($validator->fails()) {
-                $code = $this->returnCodeAccordingToInput($validator);
-                return $this->returnValidationError($code, $validator);
-            }
-            $imageName = time() . 'new.' . $request->image->extension();
-            $this->uploadImage($request->image, $imageName, 'news');
-            News::create([
-                'name_ar' => $request->name_ar,
-                'name_en' => $request->name_en,
-                'desc_ar' => $request->desc_ar,
-                'desc_en' => $request->desc_en,
-                'image' => $imageName,
-                'user_id' => $request->user()->id
-            ]);
-            return $this->returnSuccess(200, __('api.addNew'));
-        } catch (\Throwable $th) {
-            return $this->returnError(403, $th->getMessage());
-        }
-    }
 }
