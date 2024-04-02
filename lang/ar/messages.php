@@ -2,6 +2,9 @@
 return [
     'closed_message' => 'التطبيق مغلق لأعمال الصيانة',
     'unknown' => 'غير معروف',
+    'addToCart' => 'تم اضافة المنتج الي السلة بنجاح',
+    'changeStatus' => 'تم تغيير الحالة بنجاح',
+    'CancelOrder' => 'تم الغاء الطلب بنجاح',
 
     // Authentication
     'registration_done' => 'تم تسجيل الحساب بنجاح',
@@ -85,7 +88,7 @@ return [
     'create_user' => 'تم إضافة المستخدم بنجاح',
 
     'delete_work_image' => 'تم حذف صورة العمل بنجاح',
-    
+
     'addChopping' => 'تم اضافة طريقه تقطيع الذبيحه',
     'editChopping' => 'تم تعديل طريقة تقطيع الذبيحة',
     'deleteChopping' => 'تم حذف طريقة تقطيع الذبيحة بنجاح',

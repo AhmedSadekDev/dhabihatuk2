@@ -17,5 +17,8 @@ return [
     'sendContact' => 'Message sent successfully',
     'addNew' => 'The news has been added successfully, awaiting administration approval',
     'addSuitable' => 'The Suitable has been added successfully, awaiting administration approval',
+    'addToCart' => 'The product was successfully added to the cart',
+    'removeCart' => 'The product was successfully removed from the cart',
+    'makeOrder' => 'The order has been created successfully, waiting for delivery'
 ]
 ?>

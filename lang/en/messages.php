@@ -3,6 +3,8 @@ return
     [
         'closed_message' => 'The application is closed for maintenance',
         'unknown' => 'unknown',
+        'changeStatus' => 'Status changed successfully',
+        'CancelOrder' => 'The order was successfully cancelled',
 
         //Authentication
         'registration_done' => 'Account has been registered successfully',

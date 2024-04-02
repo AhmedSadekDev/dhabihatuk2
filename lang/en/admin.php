@@ -1,6 +1,23 @@
 <?php
 
 return [
+    'ordereDetials' => 'Order Details',
+    'notes' => 'notes',
+    'deliveryDetials' => 'Delivery Details',
+    'delivery' => 'delivery price',
+    'addition' => 'added value',
+    'code' => 'delivery code',
+    'newOrders' => 'New Orders',
+    'completeOrders' => 'Completed Orders',
+    'cancelOrders' => 'Cancelled Orders',
+    'changeStatus' => 'change status',
+    'deleteOrder' => 'Cancel order',
+    'deleteReason' => 'Reason for cancellation',
+    'cancel' => 'cancel',
+    'newOrder' => 'New Order',
+    'deliveryOrder' => 'Delivered',
+    'cancelOrder' => 'Cancelled order',
+    'change' => 'change',
     'headerUpload' => 'The required rows in the Excel file',
     'importExcel' => 'Add in Excel',
     'file' => 'excel file',

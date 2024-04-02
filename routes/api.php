@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +27,7 @@ Route::group(['middleware' => ['api']], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::get('homeScreen', [HomeController::class, 'homeScreen']);
     Route::get('categoryProducts', [HomeController::class, 'categoryProducts']);
+    Route::get('productDetials', [HomeController::class, 'productDetials']);
     Route::get('Wrapping', [HomeController::class, 'Wrapping']);
     Route::get('Chopping', [HomeController::class, 'Chopping']);
 });
@@ -40,4 +43,8 @@ Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
     Route::get('getSocials', [HomeController::class, 'getSocials']);
     Route::post('sendContact', [HomeController::class, 'sendContact']);
     Route::get('setting', [HomeController::class, 'setting']);
+    Route::post('addToCart', [CartController::class, 'addToCart']);
+    Route::get('getCart', [CartController::class, 'getCart']);
+    Route::get('removeCart', [CartController::class, 'removeCart']);
+    Route::post('makeOrder', [OrderController::class, 'makeOrder']);
 });

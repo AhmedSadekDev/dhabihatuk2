@@ -198,6 +198,23 @@
                     </ul>
                 </li>
             @endcan
+            @can('orders')
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
+                            style="font-size: 16px"></i><span class="side-menu__label">{{ __('admin.orders') }}</span><i
+                            class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
+
+                        <li><a class="slide-item" href="{{ route('orders', 1) }}">{{ __('admin.newOrders') }}</a>
+                        </li>
+                        <li><a class="slide-item" href="{{ route('orders', 2) }}">{{ __('admin.compeletOrders') }}</a>
+                        </li>
+                        <li><a class="slide-item" href="{{ route('orders', 3) }}">{{ __('admin.cancelOrders') }}</a>
+                        </li>
+
+                    </ul>
+                </li>
+            @endcan
             @can('notifications')
                 <li class="slide">
                     <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"

@@ -4,24 +4,24 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\ChoppingResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\SliderResource;
+use App\Http\Resources\WrappingResource;
 use App\Http\Traits\GeneralTrait;
 use App\Http\Traits\ImagesTrait;
 use App\Models\About;
+use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Chopping;
 use App\Models\Contact;
-use App\Models\News;
 use App\Models\NotificationDetials;
 use App\Models\Notifications;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\Social;
-use App\Models\Suitable;
 use App\Models\Terms;
-use App\Models\User;
-use App\Models\WhoUs;
 use App\Models\Wrapping;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
@@ -56,15 +56,36 @@ class HomeController extends Controller
             return $this->returnError(403, $th->getMessage());
         }
     }
-    public function Wrapping()
+
+    public function productDetials(Request $request)
     {
         try {
-            $Wrapping = Wrapping::where('status', 1)->latest()->get();
-            return $this->returnData("data", ['products' => ProductResource::collection($Wrapping)], 'تم استرجاع الداتا بنجاح');
+            $product = Product::find($request->product_id);
+            return $this->returnData("data", ['product' => new ProductResource($product)], 'تم استرجاع الداتا بنجاح');
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
         }
     }
+    public function Wrapping()
+    {
+        try {
+            $Wrapping = Wrapping::where('status', 1)->latest()->get();
+            return $this->returnData("data", ['Wrapping' => WrappingResource::collection($Wrapping)], 'تم استرجاع الداتا بنجاح');
+        } catch (\Throwable $th) {
+            return $this->returnError(403, $th->getMessage());
+        }
+    }
+    public function Chopping()
+    {
+        try {
+            $Choppings = Chopping::where('status', 1)->latest()->get();
+            return $this->returnData("data", ['Choppings' => ChoppingResource::collection($Choppings)], 'تم استرجاع الداتا بنجاح');
+        } catch (\Throwable $th) {
+            return $this->returnError(403, $th->getMessage());
+        }
+    }
+
+
 
     public function getNotifications()
     {
@@ -176,5 +197,4 @@ class HomeController extends Controller
             return $this->returnError(403, $th->getMessage());
         }
     }
-
 }

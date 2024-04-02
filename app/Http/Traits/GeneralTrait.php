@@ -106,6 +106,18 @@ trait GeneralTrait
             return "E022";
         } elseif ($input == "time") {
             return "E023";
+        } elseif ($input == "product_id") {
+            return "E024";
+        } elseif ($input == "count") {
+            return "E025";
+        } elseif ($input == "wrapping_id") {
+            return "E026";
+        } elseif ($input == "chopping_id") {
+            return "E027";
+        } elseif ($input == "notes") {
+            return "E028";
+        } elseif ($input == "cart_id") {
+            return "E028";
         }
     }
 }

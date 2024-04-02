@@ -177,6 +177,8 @@ return [
     */
 
     'attributes' => [
+        'notes' => 'ملاحظات',
+        'count' => 'العدد',
         'subjecet' => 'موضوع الرساله',
         'level_id' => 'المستوي',
         'package_id' => 'الباكيدج',

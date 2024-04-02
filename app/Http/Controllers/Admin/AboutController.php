@@ -32,15 +32,4 @@ class AboutController extends Controller
         Terms::where('id', 1)->update(['value_ar' => $request->value_ar, 'value_en' => $request->value_en]);
         return back()->with('message', __('messages.edit_terms'));
     }
-    public function whoUs()
-    {
-        $whoUs = WhoUs::first();
-        return view('admin.whoUs.index', compact('whoUs'));
-    }
-
-    public function updatewhoUs(Request $request)
-    {
-        WhoUs::where('id', 1)->update(['value_ar' => $request->value_ar, 'value_en' => $request->value_en]);
-        return back()->with('message', __('messages.edit_WhoUs'));
-    }
 }

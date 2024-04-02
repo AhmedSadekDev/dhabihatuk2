@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\LangController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
@@ -147,6 +148,18 @@ Route::group(['prefix' => '/', 'middleware' => ['Lang']], function () {
                 Route::PUT('/', [ProductController::class, 'update'])->name('products.update');
                 Route::PUT('/verify', [ProductController::class, 'verify'])->name('products.verify');
                 Route::get('/editProduct/{id}', [ProductController::class, 'edit'])->name('products.edit')->middleware('can:editProduct');
+            }
+        );
+        /**
+         * Route For orders Controller
+         */
+        Route::group(
+            ['prefix' => '/orders'],
+            function () {
+                Route::get('/{status}', [OrderController::class, 'index'])->name('orders');
+                Route::get('/detials/{id}', [OrderController::class, 'detials'])->name('orders.detials');
+                Route::post('/', [OrderController::class, 'cancel'])->name('orders.cancel');
+                Route::put('/', [OrderController::class, 'changeStatus'])->name('orders.changeStatus');
             }
         );
         Route::group(['prefix' => 'settings'], function () {
