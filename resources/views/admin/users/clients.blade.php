@@ -19,7 +19,6 @@ if (isset($_GET['search'])) {
     <style>
         .pagination-box {
             display: flex;
-            justify-content: flex-end;
         }
     </style>
 @endsection

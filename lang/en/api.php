@@ -19,6 +19,9 @@ return [
     'addSuitable' => 'The Suitable has been added successfully, awaiting administration approval',
     'addToCart' => 'The product was successfully added to the cart',
     'removeCart' => 'The product was successfully removed from the cart',
-    'makeOrder' => 'The order has been created successfully, waiting for delivery'
+    'makeOrder' => 'The order has been created successfully, waiting for delivery',
+    'addLocation' => 'Location added successfully',
+    'deleteLocation' => 'Location removed successfully',
+    'deleteOrder' => 'Order canceled successfully',
 ]
-?>
+    ?>

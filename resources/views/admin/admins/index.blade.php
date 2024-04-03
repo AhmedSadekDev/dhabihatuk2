@@ -12,7 +12,6 @@
     <style>
         .pagination-box {
             display: flex;
-            justify-content: flex-end;
         }
     </style>
 @endsection
@@ -88,15 +87,16 @@
                                                     </button>
                                                 </form>
                                                 <a class="btn btn-outline-secondary bg-warning text-dark btn-sm ml-2"
-                                                    title="{{ __('admin.edit') }}" href="{{ route('admins.edit', [$admin->id]) }}">
+                                                    title="{{ __('admin.edit') }}"
+                                                    href="{{ route('admins.edit', [$admin->id]) }}">
                                                     <i class="fas fa-pencil-alt" style="color:white"></i>
                                                 </a>
                                             @endcan
                                             @can('deleteAdmin')
                                                 <button type="submit"
                                                     class="modal-effect btn btn-outline-secondary bg-danger text-dark btn-sm"
-                                                    title="{{ __('admin.delete') }}" data-effect="effect-newspaper" data-toggle="modal"
-                                                    href="#myModal{{ $admin->id }}">
+                                                    title="{{ __('admin.delete') }}" data-effect="effect-newspaper"
+                                                    data-toggle="modal" href="#myModal{{ $admin->id }}">
                                                     <i class="fas fa-trash-alt" style="color:white"></i>
                                                 </button>
                                             @endcan

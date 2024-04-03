@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\ChoppingResource;
+use App\Http\Resources\DelivaryTimeResources;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\SliderResource;
 use App\Http\Resources\WrappingResource;
@@ -15,6 +16,7 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Chopping;
 use App\Models\Contact;
+use App\Models\DelivayTime;
 use App\Models\NotificationDetials;
 use App\Models\Notifications;
 use App\Models\Product;
@@ -25,13 +27,13 @@ use App\Models\Terms;
 use App\Models\Wrapping;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     use GeneralTrait, ImagesTrait;
-    private $articleModel, $graveModel, $settingModel, $validateModel, $deadModel;
     public function __construct()
     {
         App::setLocale(request()->header('lang'));
@@ -41,7 +43,29 @@ class HomeController extends Controller
         try {
             $sliders = Slider::where('status', 1)->latest()->get();
             $categories = Category::where('status', 1)->latest()->get();
-            return $this->returnData("data", ['sliders' => SliderResource::collection($sliders), 'categories' => CategoryResource::collection($categories)], 'تم استرجاع الداتا بنجاح');
+            $bestSellingProducts = DB::table('products')
+                ->join('order_detials', 'products.id', '=', 'order_detials.product_id')
+                ->select('products.*', DB::raw('COUNT(order_detials.id) as total_orders'))
+                ->groupBy('products.id')
+                ->orderByDesc('total_orders')->take(8)
+                ->get()->toArray();
+            $data = [];
+            foreach ($bestSellingProducts as $product) {
+                $productData = Product::find($product->id);
+                array_push($data, $productData);
+            }
+            $bestRate = DB::table('products')
+                ->join('rates', 'products.id', '=', 'rates.product_id')
+                ->select('products.*', DB::raw('AVG(rates.rate) as avg_rate'))
+                ->groupBy('products.id')
+                ->orderByDesc('avg_rate')->take(8)
+                ->get()->toArray();
+            $rate = [];
+            foreach ($bestRate as $product) {
+                $productData = Product::find($product->id);
+                array_push($rate, $productData);
+            }
+            return $this->returnData("data", ['sliders' => SliderResource::collection($sliders), 'categories' => CategoryResource::collection($categories), 'bestSellingProducts' => ProductResource::collection($data), 'bestRate' => ProductResource::collection($rate)], 'تم استرجاع الداتا بنجاح');
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
         }
@@ -85,6 +109,15 @@ class HomeController extends Controller
         }
     }
 
+    public function delivay_times()
+    {
+        try {
+            $delivay_times = DelivayTime::where('status', 1)->get();
+            return $this->returnData("data", ['delivay_times' => DelivaryTimeResources::collection($delivay_times)], 'تم استرجاع الداتا بنجاح');
+        } catch (\Throwable $th) {
+            return $this->returnError(403, $th->getMessage());
+        }
+    }
 
 
     public function getNotifications()

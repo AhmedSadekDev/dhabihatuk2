@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChoppingController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\DelivaryTimesController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\ProductController;
@@ -220,6 +221,21 @@ Route::group(['prefix' => '/', 'middleware' => ['Lang']], function () {
                 Route::PUT('/', [WrappingController::class, 'update'])->name('Wrapping.update');
                 Route::PUT('/verify', [WrappingController::class, 'verify'])->name('Wrapping.verify');
                 Route::get('/editWrapping/{id}', [WrappingController::class, 'edit'])->name('Wrapping.edit')->middleware('can:editWrapping');
+            }
+        );
+        /**
+         * Route For Delivary times Controller
+         */
+        Route::group(
+            ['prefix' => '/delivay_times'],
+            function () {
+                Route::get('/', [DelivaryTimesController::class, 'index'])->name('delivay_times');
+                Route::get('/addTime', [DelivaryTimesController::class, 'addTime'])->name('addTime')->middleware('can:addTime');
+                Route::post('/', [DelivaryTimesController::class, 'store'])->name('delivay_times.store');
+                Route::delete('/', [DelivaryTimesController::class, 'delete'])->name('delivay_times.delete')->middleware('can:deleteTime');
+                Route::PUT('/', [DelivaryTimesController::class, 'update'])->name('delivay_times.update');
+                Route::PUT('/verify', [DelivaryTimesController::class, 'verify'])->name('delivay_times.verify');
+                Route::get('/editTime/{id}', [DelivaryTimesController::class, 'edit'])->name('delivay_times.edit')->middleware('can:editTime');
             }
         );
         /**

@@ -5,7 +5,11 @@ return
         'unknown' => 'unknown',
         'changeStatus' => 'Status changed successfully',
         'CancelOrder' => 'The order was successfully cancelled',
-
+        'addTime' => 'The time has been added successfully',
+        'editTime' => 'The time has been modified successfully',
+        'deleteTime' => 'The time has been deleted successfully',
+        'showTime' => 'The time was displayed successfully',
+        'hideTimw' => 'The timing has been successfully hidden',
         //Authentication
         'registration_done' => 'Account has been registered successfully',
         'logout' => 'Logged out successfully',
@@ -192,7 +196,6 @@ return
         'update_employee' => 'The employee has been successfully updated',
         'delete_employee' => 'Employee was successfully deleted',
         'addDraftMission' => 'The mission was successfully added to the draft',
-        'deleteTime' => 'The reminder was successfully deleted',
         'delete_mission' => 'The task was deleted successfully',
         'delete_order' => 'The order was successfully deleted',
         'rminders_validate' => 'You must enter a reminder',

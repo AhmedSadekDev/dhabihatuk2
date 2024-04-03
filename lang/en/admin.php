@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'delivery_times' => 'delivery times',
+    'addTime' => 'Add Time',
+    'editTime' => 'edit time',
+    'deleteTime' => 'delete time',
+    'deleteTimeMessage' => 'Do you want to delete this time?',
     'ordereDetials' => 'Order Details',
     'notes' => 'notes',
     'deliveryDetials' => 'Delivery Details',

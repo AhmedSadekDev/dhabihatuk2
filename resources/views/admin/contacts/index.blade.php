@@ -12,7 +12,6 @@
     <style>
         .pagination-box {
             display: flex;
-            justify-content: flex-end;
         }
     </style>
 @endsection
@@ -71,8 +70,8 @@
                                         <div class="d-flex">
                                             <button type="submit"
                                                 class="modal-effect btn btn-outline-secondary bg-danger text-dark btn-sm"
-                                                title="{{ __('admin.delete') }}" data-effect="effect-newspaper" data-toggle="modal"
-                                                href="#myModal{{ $contact->id }}">
+                                                title="{{ __('admin.delete') }}" data-effect="effect-newspaper"
+                                                data-toggle="modal" href="#myModal{{ $contact->id }}">
                                                 <i class="fas fa-trash-alt" style="color:white"></i>
                                             </button>
                                         </div>

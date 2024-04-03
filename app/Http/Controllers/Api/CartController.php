@@ -8,11 +8,16 @@ use App\Http\Traits\GeneralTrait;
 use App\Models\Cart;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
     use GeneralTrait;
+    public function __construct()
+    {
+        App::setLocale(request()->header('lang'));
+    }
     public function addToCart(Request $request)
     {
         try {

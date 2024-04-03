@@ -12,7 +12,6 @@
     <style>
         .pagination-box {
             display: flex;
-            justify-content: flex-end;
         }
     </style>
     <style>

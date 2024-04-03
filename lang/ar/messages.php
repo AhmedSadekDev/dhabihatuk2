@@ -6,6 +6,11 @@ return [
     'changeStatus' => 'تم تغيير الحالة بنجاح',
     'CancelOrder' => 'تم الغاء الطلب بنجاح',
 
+    'addTime' => 'تم اضافة التوقيت بنجاح',
+    'editTime' => 'تم تعديل التوقيت بنجاح',
+    'deleteTime' => 'تم حذف التوقيت بنجاح',
+    'showTime' => 'تم عرض التوقيت بنجاح',
+    'hideTimw' => 'تم اخفاء التوقيت بنجاح',
     // Authentication
     'registration_done' => 'تم تسجيل الحساب بنجاح',
     'logout' => 'تم تسجيل الخروج بنجاح',
@@ -217,7 +222,6 @@ return [
     'addProjecet' => 'تم اضافة المشروع بنجاح',
     'chooseEmployee' => 'يجب اختيار الموظف',
     'addDraftMission' => 'تم اضافة المهمة للمسودة بنجاح',
-    'deleteTime' => 'تم حذف التذكير بنجاح',
     'delete_mission' => 'تم حذف المهمة بنجاح',
     'delete_order' => 'تم حذف الطلب بنجاح',
     'rminders_validate' => 'يجب ادخال التذكير',

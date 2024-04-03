@@ -198,6 +198,24 @@
                     </ul>
                 </li>
             @endcan
+            @can('delivay_times')
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
+                            style="font-size: 16px"></i><span
+                            class="side-menu__label">{{ __('admin.delivay_times') }}</span><i
+                            class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
+
+                        <li><a class="slide-item" href="{{ route('delivay_times') }}">{{ __('admin.delivay_times') }}</a>
+                        </li>
+                        @can('addTime')
+                            <li><a class="slide-item" href="{{ route('addTime') }}">{{ __('admin.addTime') }}</a>
+                            </li>
+                        @endcan
+
+                    </ul>
+                </li>
+            @endcan
             @can('orders')
                 <li class="slide">
                     <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"

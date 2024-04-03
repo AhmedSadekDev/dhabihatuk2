@@ -12,7 +12,6 @@
     <style>
         .pagination-box {
             display: flex;
-            justify-content: flex-end;
         }
     </style>
 @endsection
@@ -62,7 +61,8 @@
                                 <tr data-id="{{ $count + 1 }}">
                                     <td style="width: 80px" class="align-middle">{{ $count + 1 }}</td>
                                     <td class="align-middle">{{ $social->name }}</td>
-                                    <td class="align-middle"><img src="{{ asset('Admin/images/socials/' . $social->icon) }}"
+                                    <td class="align-middle"><img
+                                            src="{{ asset('Admin/images/socials/' . $social->icon) }}"
                                             alt="{{ __('admin.icon') }}" style="width: 100px;" /></td>
                                     <td class="align-middle">{{ $social->link }}</td>
                                     <td class="align-middle">

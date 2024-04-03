@@ -29,7 +29,7 @@ class AuthController extends Controller
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
 
-            return redirect()->intended();
+            return redirect()->intended(route('admin'));
         }
 
         session()->flash('error', __('messages.wrong_password'));

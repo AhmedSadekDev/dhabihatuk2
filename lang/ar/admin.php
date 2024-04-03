@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'delivay_times' => 'اوقات التوصيل',
+    'addTime' => 'اضافة وقت',
+    'editTime' => 'تعديل وقت',
+    'deleteTime' => 'حذف وقت',
+    'deleteTimeMessage' => 'هل تريد حذف هذا التوقيت؟',
     'headerUpload' => 'الصفوف المطلوبه في ملف الاكسيل',
     'importExcel' => 'اضافة بالاكسيل',
     'file' => 'ملف الاكسيل',

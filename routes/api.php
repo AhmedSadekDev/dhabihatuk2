@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\LocationCotroller;
 use App\Http\Controllers\Api\OrderController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,7 @@ Route::group(['middleware' => ['api']], function () {
     Route::get('productDetials', [HomeController::class, 'productDetials']);
     Route::get('Wrapping', [HomeController::class, 'Wrapping']);
     Route::get('Chopping', [HomeController::class, 'Chopping']);
+    Route::get('delivay_times', [HomeController::class, 'delivay_times']);
 });
 Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
@@ -37,6 +39,9 @@ Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
     Route::get('getProfileData', [AuthController::class, 'getProfileData']);
     Route::post('updateProfile', [AuthController::class, 'updateProfile']);
     Route::post('updatePassword', [AuthController::class, 'updatePassword']);
+    Route::get('getLocations', [LocationCotroller::class, 'getLocations']);
+    Route::get('deleteLocation', [LocationCotroller::class, 'deleteLocation']);
+    Route::post('addLocation', [LocationCotroller::class, 'addLocation']);
     Route::get('getNotifications', [HomeController::class, 'getNotifications']);
     Route::get('about', [HomeController::class, 'about']);
     Route::get('terms', [HomeController::class, 'terms']);
@@ -47,4 +52,8 @@ Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
     Route::get('getCart', [CartController::class, 'getCart']);
     Route::get('removeCart', [CartController::class, 'removeCart']);
     Route::post('makeOrder', [OrderController::class, 'makeOrder']);
+    Route::get('myOrders', [OrderController::class, 'myOrders']);
+    Route::get('reOrder', [OrderController::class, 'reOrder']);
+    Route::get('deleteOrder', [OrderController::class, 'deleteOrder']);
+    Route::post('updateOrder', [OrderController::class, 'updateOrder']);
 });
